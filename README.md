@@ -1,6 +1,6 @@
 Untuk Body yang digunakan untuk inputan berupa
-1. Nama
-2. Keterangan (Cuti, Hadir, Tidak Hadir)
+1. nama
+2. keterangan (Cuti, Hadir, Tidak Hadir)
 
 -Create, Read menggunakan http://localhost:8081/api/absensi
 -Update dan Delete menggunakan http://localhost:8081/api/absensi/{id}
