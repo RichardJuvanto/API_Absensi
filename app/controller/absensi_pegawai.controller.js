@@ -10,7 +10,7 @@ exports.create = (req, res) => {
   var diff = (timeNow - timeMax) / 1000;
   diff /= 60;
 
-  if (Math.round(diff) < 0 || req.body.keterangan == "Cuti") {
+  if (Math.round(diff) < 0 || req.body.keterangan == "Cuti" || req.body.keterangan == "Tidak Hadir") {
     const absensi = new Absensi({
       nama: req.body.nama,
       keterangan: req.body.keterangan,
