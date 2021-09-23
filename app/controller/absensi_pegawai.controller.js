@@ -2,43 +2,19 @@ const db = require("../models");
 const Absensi = db.absensi_pegawai;
 
 exports.create = (req, res) => {
-  var timeNow = new Date().getTime();
-  var timeMax = new Date();
-  timeMax.setHours(8);
-  timeMax.setMinutes(30);
+  const absensi = new Absensi({
+    id_pegawai: req.body.id_pegawai,
+    tanggal: req.body.tanggal,
+    keterangan: req.body.keterangan,
+});
 
-  var diff = (timeNow - timeMax) / 1000;
-  diff /= 60;
-
-  if (Math.round(diff) < 0 || req.body.keterangan == "Cuti" || req.body.keterangan == "Tidak Hadir") {
-    const absensi = new Absensi({
-      nama: req.body.nama,
-      keterangan: req.body.keterangan,
-      telat: false,
-    });
-    absensi.save(absensi).then((data) => {
-      res.send(data);
-    }).catch((err) => {
-      res.status(500).send({
+absensi.save(absensi).then((data) => {
+    res.send(data);
+}).catch((err) => {
+    res.status(500).send({
         message: err.message || "Some error occurred while creating the Absensi.",
-      });
     });
-  }else{
-    const absensi = new Absensi({
-      nama: req.body.nama,
-      keterangan: req.body.keterangan,
-      telat: true,
-    });
-    absensi.save(absensi).then((data) => {
-      res.send(data);
-    }).catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while creating the Absensi.",
-      });
-    });
-  }
-
-
+});
   
 };
 
