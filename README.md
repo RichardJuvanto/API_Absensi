@@ -27,7 +27,7 @@ Untuk Body yang digunakan untuk inputan berupa
 
 -Read Data Satuan menggunakan 
 
-1. Absensi : http://localhost:8081/api/absensi/{id}
+1. Absensi : http://localhost:8081/api/absensi/detail/{id}
 2. Pegawai : http://localhost:8081/api/pegawai/{id}
 
 -Melihat Laporan menggunakan 
