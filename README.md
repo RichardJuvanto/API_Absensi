@@ -9,15 +9,27 @@ Untuk Body yang digunakan untuk inputan berupa
 6. alamat
 
 -Absensi
-1.id_pegawai
-2.tanggal (YYYY-MM-DD)
-3.keterangan (Hadir, Cuti, Tidak Hadir)
 
+1. id_pegawai
+2. tanggal (YYYY-MM-DD)
+3. keterangan (Hadir, Cuti, Tidak Hadir)
 
 -Create, Read menggunakan
+
 1. Absensi : http://localhost:8081/api/absensi
 2. Pegawai : http://localhost:8081/api/pegawai
 
--Update dan Delete menggunakan http://localhost:8081/api/absensi/{id}
--Read Data Satuan menggunakan http://localhost:8081/api/absensi/detail/{id}
--Melihat Laporan menggunakan http://localhost:8081/api/absensi/laporan
+-Update dan Delete menggunakan 
+
+1. Absensi : http://localhost:8081/api/absensi/{id}
+2. Pegawai : http://localhost:8081/api/pegawai/{id}
+
+
+-Read Data Satuan menggunakan 
+
+1. Absensi : http://localhost:8081/api/absensi/{id}
+2. Pegawai : http://localhost:8081/api/pegawai/{id}
+
+-Melihat Laporan menggunakan 
+1. Keseluruhan : http://localhost:8081/api/absensi/laporan
+2. Tgl 01-09-2021 - 24-09-2021 : localhost:8081/api/absensi/laporan?tanggalawal=2021-09-01&tanggalakhir=2021-09-24
