@@ -4,18 +4,18 @@ const Absensi = db.absensi_pegawai;
 exports.create = (req, res) => {
   const absensi = new Absensi({
     id_pegawai: req.body.id_pegawai,
-    tanggal: req.body.tanggal,
+    tanggal: new Date(req.body.tanggal).toISOString(),
     keterangan: req.body.keterangan,
-});
+  });
 
-absensi.save(absensi).then((data) => {
+  absensi.save(absensi).then((data) => {
     res.send(data);
-}).catch((err) => {
+  }).catch((err) => {
     res.status(500).send({
-        message: err.message || "Some error occurred while creating the Absensi.",
+      message: err.message || "Some error occurred while creating the Absensi.",
     });
-});
-  
+  });
+
 };
 
 exports.findOne = (req, res) => {
@@ -37,7 +37,7 @@ exports.findAll = (req, res) => {
     ? { nama: { $regex: new RegExp(nama), $options: "i" } }
     : {};
 
-  Absensi.find(condition)
+  Absensi.find(condition).populate('id_pegawai')
     .then((data) => {
       res.send(data);
     })
@@ -88,10 +88,22 @@ exports.delete = (req, res) => {
 };
 
 exports.laporan = async (req, res) => {
+  tglawal = req.query.tanggalawal;
+  tglakhir = req.query.tanggalakhir;
   Absensi.aggregate([
     {
+      $match:
+      {
+        tanggal:
+        {
+          $gte: new Date(tglawal),
+          $lte: new Date(tglakhir) 
+        }
+      }
+    },
+    {
       $group: {
-        _id: { nama: "$nama", keterangan: "$keterangan", telat: "$telat" },
+        _id: { id_pegawai: "$id_pegawai", keterangan: "$keterangan" },
         Jumlah: { $sum: 1 },
       }
     }

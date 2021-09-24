@@ -28,6 +28,7 @@ db.mongoose
         process.exit();
     });
 require("./app/routes/absensi_pegawai.routes.js")(app);
+require("./app/routes/pegawai.routes.js")(app);
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
    console.log(`Server backend port ${PORT}.`);
