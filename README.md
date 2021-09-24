@@ -1,4 +1,5 @@
 Untuk Body yang digunakan untuk inputan berupa
+
 -Pegawai
 1. nama
 2. posisi
@@ -16,6 +17,7 @@ Untuk Body yang digunakan untuk inputan berupa
 -Create, Read menggunakan
 1. Absensi : http://localhost:8081/api/absensi
 2. Pegawai : http://localhost:8081/api/pegawai
+
 -Update dan Delete menggunakan http://localhost:8081/api/absensi/{id}
 -Read Data Satuan menggunakan http://localhost:8081/api/absensi/detail/{id}
 -Melihat Laporan menggunakan http://localhost:8081/api/absensi/laporan
