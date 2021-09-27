@@ -88,26 +88,39 @@ exports.delete = (req, res) => {
 };
 
 exports.laporan = async (req, res) => {
-  tglawal = req.query.tanggalawal;
-  tglakhir = req.query.tanggalakhir;
-  Absensi.aggregate([
-    {
-      $match:
+  if (req.query.tanggalawal && req.query.tanggalakhir) {
+    tglawal = req.query.tanggalawal;
+    tglakhir = req.query.tanggalakhir;
+    Absensi.aggregate([
       {
-        tanggal:
+        $match:
         {
-          $gte: new Date(tglawal),
-          $lte: new Date(tglakhir) 
+          tanggal:
+          {
+            $gte: new Date(tglawal),
+            $lte: new Date(tglakhir)
+          }
+        }
+      },
+      {
+        $group: {
+          _id: { id_pegawai: "$id_pegawai", keterangan: "$keterangan" },
+          Jumlah: { $sum: 1 },
         }
       }
-    },
-    {
-      $group: {
-        _id: { id_pegawai: "$id_pegawai", keterangan: "$keterangan" },
-        Jumlah: { $sum: 1 },
+    ]).then((data) => {
+      res.send(data);
+    });
+  }else{
+    Absensi.aggregate([
+      {
+        $group: {
+          _id: { id_pegawai: "$id_pegawai", keterangan: "$keterangan" },
+          Jumlah: { $sum: 1 },
+        }
       }
-    }
-  ]).then((data) => {
-    res.send(data);
-  });
+    ]).then((data) => {
+      res.send(data);
+    });
+  }
 };
