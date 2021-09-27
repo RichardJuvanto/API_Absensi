@@ -88,18 +88,17 @@ exports.delete = (req, res) => {
 };
 
 exports.laporan = async (req, res) => {
-  if (req.query.tanggalawal && req.query.tanggalakhir) {
-    tglawal = req.query.tanggalawal;
-    tglakhir = req.query.tanggalakhir;
+  if (req.query.tanggalawal && req.query.tanggalakhir && req.query.keterangan) {
     Absensi.aggregate([
       {
         $match:
         {
           tanggal:
           {
-            $gte: new Date(tglawal),
-            $lte: new Date(tglakhir)
-          }
+            $gte: new Date(req.query.tanggalawal),
+            $lte: new Date(req.query.tanggalakhir),
+          },
+          keterangan: req.query.keterangan,
         }
       },
       {
@@ -111,16 +110,39 @@ exports.laporan = async (req, res) => {
     ]).then((data) => {
       res.send(data);
     });
-  }else{
-    Absensi.aggregate([
-      {
-        $group: {
-          _id: { id_pegawai: "$id_pegawai", keterangan: "$keterangan" },
-          Jumlah: { $sum: 1 },
+  } else {
+    if (req.query.tanggalawal && req.query.tanggalakhir) {
+      Absensi.aggregate([
+        {
+          $match:
+          {
+            tanggal:
+            {
+              $gte: new Date(req.query.tanggalawal),
+              $lte: new Date(req.query.tanggalakhir),
+            },
+          }
+        },
+        {
+          $group: {
+            _id: { id_pegawai: "$id_pegawai", keterangan: "$keterangan" },
+            Jumlah: { $sum: 1 },
+          }
         }
-      }
-    ]).then((data) => {
-      res.send(data);
-    });
+      ]).then((data) => {
+        res.send(data);
+      });
+    } else {
+      Absensi.aggregate([
+        {
+          $group: {
+            _id: { id_pegawai: "$id_pegawai", keterangan: "$keterangan" },
+            Jumlah: { $sum: 1 },
+          }
+        }
+      ]).then((data) => {
+        res.send(data);
+      });
+    }
   }
 };
