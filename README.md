@@ -34,5 +34,6 @@ Untuk Body yang digunakan untuk inputan berupa
 1. Keseluruhan : http://localhost:8081/api/absensi/laporan
 2. Tgl 01-09-2021 - 24-09-2021 : http://localhost:8081/api/absensi/laporan?tanggalawal=2021-09-01&tanggalakhir=2021-09-24
 3. Tgl 01-09-2021 - 24-09-2021 & keterangan : Hadir : https://localhost:8081/api/absensi/laporan?tanggalawal=2021-09-01&tanggalakhir=2021-09-31&keterangan=Hadir
+4. Tgl 01-09-2021 - 24-09-2021 & keterangan : Hadir & Tidak Hadir : localhost:8081/api/absensi/laporan?tanggalawal=2021-09-01&tanggalakhir=2021-09-31&keterangan=Tidak Hadir&keterangan=Hadir
 
 PS : Laporan hanya dapat menggunakan menggunakan tanggal dan perlu 'tanggalawal' dan 'tanggalakhir'
