@@ -98,7 +98,7 @@ exports.laporan = async (req, res) => {
             $gte: new Date(req.query.tanggalawal),
             $lte: new Date(req.query.tanggalakhir),
           },
-          keterangan: req.query.keterangan,
+          keterangan:{$in: req.query.keterangan,}
         }
       },
       {
@@ -109,6 +109,7 @@ exports.laporan = async (req, res) => {
       }
     ]).then((data) => {
       res.send(data);
+      console.log(req.query.keterangan);
     });
   } else {
     if (req.query.tanggalawal && req.query.tanggalakhir) {
